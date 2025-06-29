@@ -1,17 +1,24 @@
 import pytest
 import pandas as pd
-from src.preprocess import load_data, validate_data
 import pandas as pd
 
-def load_data(path):
-    df = pd.read_csv(path)
-    return df
+import unittest
+import joblib
+import pandas as pd
 
-def validate_data(df):
-    assert not df.isnull().values.any(), "Data contains null values"
-    assert df.shape[1] == 5, "Unexpected number of columns"
-    assert set(df['species'].unique()) == {'setosa', 'versicolor', 'virginica'}    
+class TestModel(unittest.TestCase):
+    restored_df = None
+    
+    def setUp(self):
+        self.restored_df = pd.read_csv(path)
 
-def test_data_validation():
-    df = load_data('data/iris.csv')
-    validate_data(df)  # Will raise assertion if data is bad    
+    def validate_data(df):
+        assert not self.restored_df.isnull().values.any(), "Data contains null values"
+        assert self.restored_df.shape[1] == 5, "Unexpected number of columns"
+        assert set(self.restored_df['species'].unique()) == {'setosa', 'versicolor', 'virginica'}    
+
+    def test_data_validation():
+        validate_data(df)  # Will raise assertion if data is bad    
+
+if __name__ == '__main__':
+    unittest.main()   
