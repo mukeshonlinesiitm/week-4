@@ -12,13 +12,10 @@ class TestModel(unittest.TestCase):
     def setUp(self):
         self.restored_df = pd.read_csv('data/iris.csv')
 
-    def validate_data(df):
+    def test_data_validation(self):
         assert not self.restored_df.isnull().values.any(), "Data contains null values"
         assert self.restored_df.shape[1] == 5, "Unexpected number of columns"
-        assert set(self.restored_df['species'].unique()) == {'setosa', 'versicolor', 'virginica'}    
-
-    def test_data_validation():
-        validate_data(df)  # Will raise assertion if data is bad    
+        assert set(self.restored_df['species'].unique()) == {'setosa', 'versicolor', 'virginica'}  
 
 if __name__ == '__main__':
     unittest.main()   
