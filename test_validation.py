@@ -10,7 +10,7 @@ class TestModel(unittest.TestCase):
     restored_df = None
     
     def setUp(self):
-        self.restored_df = pd.read_csv(path)
+        self.restored_df = pd.read_csv('week4/data/iris.csv')
 
     def validate_data(df):
         assert not self.restored_df.isnull().values.any(), "Data contains null values"
