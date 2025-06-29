@@ -1,4 +1,4 @@
-name: Sanity test 
+name: Auto Sanity test 
 on:
   push:
     paths:
