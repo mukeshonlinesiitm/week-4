@@ -32,6 +32,8 @@ data.head(5)
 
 train, test = train_test_split(data, test_size = 0.4, stratify = data['species'], random_state = 42)
 
+results = []
+
 for level in [0.00, 0.05, 0.10, 0.50]:
     X_train_poisoned = poison_data(X_train, poison_percentage)
 
@@ -46,5 +48,18 @@ for level in [0.00, 0.05, 0.10, 0.50]:
     acc= accuracy_score(prediction,y_test)
 
     print(f"Poison Level: {int(poison_percentage * 100)}% - Validation Accuracy: {acc:.4f}")
+        # Save results
+
+    results.append({
+        "Poison_Percentage": int(poison_percentage * 100),
+        "Validation_Accuracy": round(acc, 4)
+    })
 
     joblib.dump(mod_dt, "model.weights.h5"+str(level))
+
+# Convert results to DataFrame
+results_df = pd.DataFrame(results)
+
+# Save to CSV
+results_df.to_csv("iris_poisoning_results.csv", index=False)
+
