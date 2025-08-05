@@ -1,0 +1,30 @@
+Week 2
+git init
+# copy data and train.py from local to console editor
+python3 -m venv .env
+source .envbinactivate
+pip install scikit-learn, pandas , numpy
+pip install dvc
+
+dvc init
+dvc add data
+python train.py
+dvc add model.weights.h5
+git add data.dvc model.weights.h5.dvc .gitignore
+git commit -m “first iteration done with 150 samples”
+git tag -a “v1.0” -m “model v1.0, 1000 150 samples”
+
+
+# Manually corrected iris data from 150-160 samples
+dvc add data
+python train.py
+dvc add model.weights.h5
+git add data.dvc model.weights.h5.dvc .gitignore
+git commit -m “second iteration done with 160 samples”
+git tag -a “v2.0” -m “model v2.0, 160 samples”
+
+git checkout v1.0
+dvc checkout
+
+git checkout v1.0 data.dvc
+dvc checkout data.dvc
