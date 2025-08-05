@@ -13,16 +13,19 @@ jobs:
         with:
           python-version: "3.12"
       - uses: iterative/setup-cml@v2
-      - name: run unit tests
+      - name: run train program
         run: |
           pip install -r requirements.txt
-          python -m unittest test_validation 2>&1 > test_output.txt
+          python train.py
       - name: Create CML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "test output" > report.md
-          echo "\`\`\`" >> report.md
-          cat test_output.txt >> report.md
-          echo "\`\`\`" > report.md
+          echo "## IRIS Poisoning Report" > report.md
+          echo "" >> report.md
+          echo "This report contains the validation accuracy under different poisoning levels." >> report.md
+          echo "" >> report.md
+          echo '```csv' >> report.md
+          cat iris_poisoning_results.csv >> report.md
+          echo '```' >> report.md
           cml comment create --publish report.md
