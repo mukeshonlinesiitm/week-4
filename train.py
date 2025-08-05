@@ -31,7 +31,7 @@ def poison_data(X, poison_level):
 
     return X_poisoned
 
-data = pd.read_csv('week4/iris.csv')
+data = pd.read_csv('iris.csv')
 data.head(5)
 
 train, test = train_test_split(data, test_size = 0.4, stratify = data['species'], random_state = 42)
