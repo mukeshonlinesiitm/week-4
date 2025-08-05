@@ -5,6 +5,7 @@ from pandas.plotting import parallel_coordinates
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import  accuracy_score
 import joblib
+import matplotlib.pyplot as plt
 
 def poison_data(X, poison_level):
     """
@@ -30,15 +31,15 @@ def poison_data(X, poison_level):
 
     return X_poisoned
 
-data = pd.read_csv('iris.csv')
+data = pd.read_csv('week4/iris.csv')
 data.head(5)
 
 train, test = train_test_split(data, test_size = 0.4, stratify = data['species'], random_state = 42)
 
 results = []
 
-for level in [0.05,0.10,0.25,0.50]:
-    
+for level in np.linspace(0, 1, 21):
+    level = round(level,2)
     X_train = train[['sepal_length','sepal_width','petal_length','petal_width']]
     X_train_poisoned = poison_data(X_train, level)
     y_train = train.species
@@ -66,4 +67,23 @@ results_df = pd.DataFrame(results)
 
 # Save to CSV
 results_df.to_csv("iris_poisoning_results.csv", index=False)
+
+
+
+# Line chart: Poisoning level vs accuracy
+plt.figure(figsize=(6, 4))
+plt.plot(
+    results_df["Poison_Percentage"],
+    results_df["Validation_Accuracy"],
+    marker='o', linestyle='-', linewidth=2
+)
+
+plt.xlabel("Poison Level (%)")
+plt.ylabel("Validation Accuracy")
+plt.title("Impact of Data Poisoning on Accuracy (Line Chart)")
+plt.ylim(0.7, 1.0)  # <-- Set Y-axis from 0.7 to 1.0
+plt.grid(True)
+
+# Save the plot
+plt.savefig("poisoning_plot.png")
 
