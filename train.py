@@ -14,7 +14,7 @@ def poison_data(X, poison_level):
     
     X_poisoned = X.copy()
     n_samples = X.shape[0]
-    n_poison = int(0.05 * n_samples)
+    n_poison = int(poison_level * n_samples)
 
     # Random indices to poison
     poison_indices = np.random.choice(X_poisoned.index, n_poison, replace=False)
