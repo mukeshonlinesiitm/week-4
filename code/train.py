@@ -59,11 +59,11 @@ for level in [0.05,0.10,0.25,0.50]:
         "Validation_Accuracy": round(acc, 4)
     })
 
-    joblib.dump(mod_dt, "model.weights.h5"+str(level))
+    joblib.dump(mod_dt, "/home/g24ait093/week4/data/model.weights.h5"+str(level))
 
 # Convert results to DataFrame
 results_df = pd.DataFrame(results)
 
 # Save to CSV
-results_df.to_csv("iris_poisoning_results.csv", index=False)
+results_df.to_csv("/home/g24ait093/week4/data/iris_poisoning_results.csv", index=False)
 
