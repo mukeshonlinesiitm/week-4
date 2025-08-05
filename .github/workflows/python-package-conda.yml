@@ -21,10 +21,14 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "## IRIS Poisoning Report" > report.md
+          echo "## 📊 IRIS Poisoning Report" > report.md
           echo "" >> report.md
           echo "This report contains the validation accuracy under different poisoning levels." >> report.md
           echo "" >> report.md
+          echo "### 📈 Accuracy vs Poison Level" >> report.md
+          echo "![Poisoning Plot](poisoning_plot.png)" >> report.md
+          echo "" >> report.md
+          echo "### 🔢 CSV Output" >> report.md
           echo '```csv' >> report.md
           cat iris_poisoning_results.csv >> report.md
           echo '```' >> report.md
