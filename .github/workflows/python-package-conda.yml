@@ -26,6 +26,6 @@ jobs:
           echo "This report contains the validation accuracy under different poisoning levels." >> report.md
           echo "" >> report.md
           echo '```csv' >> report.md
-          cat /home/g24ait093/week4/data/iris_poisoning_results.csv >> report.md
+          cat iris_poisoning_results.csv >> report.md
           echo '```' >> report.md
           cml comment create --publish report.md
